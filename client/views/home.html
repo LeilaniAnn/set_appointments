@@ -1,0 +1,33 @@
+<div ng-controller="appointmentController as appointCtrl">
+<div class="container">
+<div class="row">
+    <div class="jumbotron">
+        <h1><span style="background-color:red; color:white" class="glyphicon glyphicon-plus"></span>
+            Doctor's Appointments
+        </h1>
+        <p class="text-right">
+            <span class="glyphicon glyphicon-search"></span> Search:
+            <input type="text" ng-model="filter_name">
+        </p>
+    </div>
+    <table class="table table-bordered">
+        <tr>
+            <th>Date</th>
+            <th>Time</th>
+            <th>Patient Name</th>
+            <th>Complain</th>
+            <th>Actions</th>
+        </tr>
+        <tr ng-repeat="appointment in appointCtrl.appointments | orderBy: ['date', 'time'] | filter:filter_name">
+            <td ng-bind="appointment.date | date:'MM-dd-yyyy'"></td>
+            <td ng-bind="appointment.time | date:'HH:mm a'"></td>
+            <td td style="font-weight:bold;text-transform: capitalize" ng-bind="appointment.user"></td>
+            <td ng-bind="appointment.complain"></td>
+            <td><button class="btn btn-danger-outline" ng-click="appointCtrl.destroyAppoint(appointment._id)">Cancel</button></td>
+        </tr>
+    </table>
+    <p class="text-right">
+        <a class="btn btn-info-outline" href="#/appointment">Add New Appointment</a>
+        <span ng-bind="appointCtrl.deletemsg"></span>
+    </p>
+</div>
